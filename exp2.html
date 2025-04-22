@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Experiment 2</title>
+    </head>
+
+<body>
+    <h1>Javascript Experiment</h1>
+
+    <form onsubmit="return showResult()">
+        <label>Name:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label>Age:</label>
+        <input type="number" id="age" required><br><br>
+        
+        <label>Grade:</label>
+        <select id="grade" required>
+            <option value="">SELECT GRADE</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+        </select><br><br>
+    <button type="submit">submit</button>
+    </form>
+
+    <p id='output'></p>
+    
+    <script>
+        function showResult(){
+            const name = document.getElementById('name').value.trim()
+            const age = parseInt(document.getElementById('age').value)
+            const grade = document.getElementById('grade').value
+
+            if (!name || !age || !grade) {
+               return false 
+            }
+
+        let message ='';
+
+        if (age>=18) {
+            message= `hello ${name} ur an adult.<br>`
+        } else {
+            message= `hello ${name} ur an minor.<br>`
+        }
+
+        switch (grade) {
+        case 'A':
+          message += "Performance: Excellent!";
+          break;
+        case "B":
+          message += "Performance: Good.";
+          break;
+        case "C":
+          message += "Performance: Average.";
+          break;
+        default:
+          message += "Performance: Not specified.";
+      }
+
+      document.getElementById('output').innerHTML = message;
+      return false;
+    }
+    </script>
+</body>
+</html>
