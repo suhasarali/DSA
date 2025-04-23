@@ -1,0 +1,78 @@
+1.Run and Execute any 6 docker commands:
+docker --version
+docker login
+docker images
+docker ps
+docker build -t sample-web-app .
+docker run -p 3000:3000 sample-web-app
+docker kill container_name
+docker stop container_name
+
+
+2.Create a docker file and run the container:
+
+Create a folder, cd to that,do npm init -y, npm i express ,create dockerfile,server.js and html file
+docker file code:                                          
+FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+
+EXPOSE 3000
+CMD [ "node", "server.js"]
+
+Server.js Code:
+const express=require('express');
+const app=express();
+const port=3000;
+app.use(express.static(__dirname));
+
+app.listen(port, () => {
+  console.log(`App running at http://localhost:${port}`);
+});
+
+docker build -t sample-web-app .
+docker images
+docker run -p 3000:3000 sample-web-app
+
+
+3.Pull an image from docker Hub, perform tasks on it:
+
+docker pull prakhar362/sample-web-app:latest
+docker build -t prakhar362/sample-web-app:latest .
+docker run -p 3000:3000 cvtprac
+docker stop distracted_darwin
+
+4.Create master and worker nodes,Run any 6 commands with examples:
+Do ctrl+insert to copy and shift+insert to paste,create an instance and do first two cmds and then take the worker node initialize cmd and paste in another instance.
+kubectl get nodes
+kubectl get pods
+kubectl cluster-info
+kubectl version
+kubectl api-resources
+kubectl get secrets
+kubectl get events
+kubectl get services
+
+5.Create a pod in Kubernetes,find the ip add and logs:
+kubectl get nodes
+kubectl run mypod –image=nginx
+kubectl get pods
+kubectl get pod mypod -o wide
+kubectl logs mypod
+kubectl delete pod mypod
+
+6. Create a VM in any hypervisor and figure out diff in host machine and guest machine do steps in terminal:
+
+Types of difference |    VMWARE Guest Machine |  HOST Machine
+------------------------------------------------------------------------------------
+OS Type             |    hostnamectl          |  syteminfo
+Ip config           |    ifconfig             |  ipconfig
+CPU/RAM             |    lscpu                |  Go to task manager
+Architecture        |    uname -m             |  settings-> system->abt->system type
+MAC address         |    ip a                 |  getmac
+Storage             |    df -h                |  File explorer->this pc ->space
+
+
+
+
