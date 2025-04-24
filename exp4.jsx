@@ -8,15 +8,16 @@ function App() {
     axios.get("https://fakestoreapi.com/products")
       .then((res) => setProducts(res.data))
       .catch((err) => console.error("Error fetching products:", err));
-  }, []);
+  }, [])
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+    <div style={{ padding: "20px", marginLeft:"200px", fontFamily: "Arial" }}>
       <h1 style={{ textAlign: "center", color: "#3498db" }}>🛒 Product List</h1>
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
         gap: "20px",
+        marginLeft:"70px",
         marginTop: "30px"
       }}>
         {products.map(product => (
