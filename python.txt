@@ -301,23 +301,49 @@ echo "Gross salary: $gross"
 
 1. FCFS Scheduling (Python)
 
-def fcfs(processes):
+def fcfs_scheduling(processes):
     n = len(processes)
-    wt = [0] * n
+    waiting_time = [0] * n
+    turnaround_time = [0] * n
+    
+    # Calculate waiting time
     for i in range(1, n):
-        wt[i] = processes[i-1][1] + wt[i-1]
-    total_wt = sum(wt)
-    print("Avg waiting time:", total_wt/n)
+        waiting_time[i] = processes[i-1][1] + waiting_time[i-1]
+    
+    # Calculate turnaround time (waiting + burst)
+    for i in range(n):
+        turnaround_time[i] = processes[i][1] + waiting_time[i]
+    
+    # Display results
+    print("\nProcess ID\tBurst Time\tWaiting Time\tTurnaround Time")
+    for i in range(n):
+        print(f"P{processes[i][0]}\t\t{processes[i][1]}\t\t{waiting_time[i]}\t\t{turnaround_time[i]}")
+    
+    # Calculate averages
+    avg_wait = sum(waiting_time) / n
+    avg_turnaround = sum(turnaround_time) / n
+    print(f"\nAverage Waiting Time: {avg_wait:.2f}")
+    print(f"Average Turnaround Time: {avg_turnaround:.2f}")
 
-processes = [[1, 6], [2, 8], [3, 7]]  
-fcfs(processes)
+# Example usage
+if __name__ == "__main__":
+    processes = [
+        [1, 6],  # [Process ID, Burst Time]
+        [2, 8],
+        [3, 7],
+        [4, 3]
+    ]
+    print("First-Come-First-Serve (FCFS) Scheduling")
+    fcfs_scheduling(processes)
 
 2. Round Robin Scheduling (Python)
 
 def round_robin(processes, quantum):
     n = len(processes)
-    rem_bt = [p[1] for p in processes]
-    t = 0
+    rem_bt = [p[1] for p in processes]  # Remaining burst times
+    t = 0  # Current time
+    
+    print("Process ID\tRemaining Time\tTime Elapsed")
     while True:
         done = True
         for i in range(n):
@@ -326,11 +352,16 @@ def round_robin(processes, quantum):
                 exec_time = min(quantum, rem_bt[i])
                 rem_bt[i] -= exec_time
                 t += exec_time
+                print(f"P{processes[i][0]}\t\t{rem_bt[i]}\t\t{t}")
         if done:
             break
 
-processes = [[1, 10], [2, 5], [3, 8]]
-round_robin(processes, 2)
+# Example usage
+if __name__ == "__main__":
+    processes = [[1, 10], [2, 5], [3, 8]]  # Format: [ProcessID, BurstTime]
+    quantum = 2
+    print(f"Running Round Robin with quantum = {quantum}")
+    round_robin(processes, quantum)
 
 4. Semaphore Implementation (Python)
 python
