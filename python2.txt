@@ -90,25 +90,21 @@ esac
 ```
 
 ## **8. Element in List or Not**
-```bash
+```bash                                        
 #!/bin/bash
-echo "Enter list of elements (space-separated):"
+echo "Enter numbers separeted by space:"
 read -a arr
-echo "Enter element to search:"
-read target
-found=0
-for item in "${arr[@]}"
+echo "enter value to be searched:"
+read num
+for i in "${arr[@]}";
 do
-  if [ "$item" == "$target" ]; then
-    found=1
-    break
-  fi
+        if [ "$i" -eq "$num" ]; then
+                echo "$num is present in the list."
+                exit 0
+        fi
 done
-if [ $found -eq 1 ]; then
-  echo "$target is present in the list."
-else
-  echo "$target is NOT present in the list."
-fi
+echo "$num not found "
+
 ```
 
 ## **9. Area & Circumference of a Circle**
