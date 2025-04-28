@@ -1,0 +1,430 @@
+Page 1:
+Arithmetic Operations:
+
+echo "Enter two numbers:"
+read num1 num2
+echo "Addition: $((num1 + num2))"
+echo "Subtraction: $((num1 - num2))"
+echo "Multiplication: $((num1 * num2))"
+echo "Division: $((num1 / num2))"
+echo "Modulus: $((num1 % num2))"
+
+System Monitoring Tasks:
+
+echo "Build started at $(date)"
+clear
+exit
+echo "Process started at: $(date)" >> log.txt
+time ./script.sh
+
+-------------------------------------------
+Page 2:
+Interest Calculation:
+
+echo "Enter principal (P), rate (R), time (T):"
+read p r t
+si=$(( (p * r * t) / 100 ))
+ci=$(echo "scale=2; $p * (1 + $r/100) ^ $t - $p" | bc)
+echo "Simple Interest: $si"
+echo "Compound Interest: $ci"
+
+Monitoring Tasks:
+
+uptime
+cal
+cat /etc/config.conf
+tty
+man command_name
+
+-------------------------------------------
+Page 3:
+Largest of Three:
+
+echo "Enter three numbers:"
+read a b c
+if [ $a -gt $b ] && [ $a -gt $c ]; then
+    echo "$a is largest"
+elif [ $b -gt $a ] && [ $b -gt $c ]; then
+    echo "$b is largest"
+else
+    echo "$c is largest"
+fi
+
+System Tasks:
+
+which python3
+history
+id
+pwd
+whoami
+
+-------------------------------------------
+Page 4:
+Leap Year:
+
+echo "Enter year:"
+read year
+if [ $((year % 400)) -eq 0 ]; then
+    echo "Leap year"
+elif [ $((year % 100)) -eq 0 ]; then
+    echo "Not leap year"
+elif [ $((year % 4)) -eq 0 ]; then
+    echo "Leap year"
+else
+    echo "Not leap year"
+fi
+
+Admin Tasks:
+
+ping google.com
+ifconfig
+lpr file.txt
+lprm 42
+echo "Message" | mail -s "Subject" user@email.com
+
+-------------------------------------------
+Page 5:
+Temperature Conversion:
+
+echo "Enter Fahrenheit:"
+read f
+c=$(echo "scale=2; ($f - 32) * 5/9" | bc)
+echo "$f°F = $c°C"
+File Tasks:
+
+mkdir project
+ls -l
+cp file.txt backup/
+tar -czvf archive.tar.gz files/
+head file.txt
+  
+-------------------------------------------
+Page 6:
+Circle Calculations:
+
+echo "Enter radius:"
+read r
+pi=3.14159
+area=$(echo "scale=2; $pi * $r * $r" | bc)
+circ=$(echo "scale=2; 2 * $pi * $r" | bc)
+echo "Area: $area"
+echo "Circumference: $circ"
+User Tasks:
+
+sudo useradd username
+sudo usermod -aG groupname username
+w
+sudo userdel -r username
+sudo chage -l username
+
+-------------------------------------------
+Page 7:
+List Search:
+
+echo "Enter list:"
+read -a list
+echo "Enter search term:"
+read x
+for item in "${list[@]}"; do
+    if [ $item -eq $x ]; then
+        echo "Found"
+        exit
+    fi
+done
+echo "Not found"
+
+Process Tasks:
+ps aux
+pstree
+nice -n 19 command
+renice -n 10 -p PID
+kill -9 PID
+
+Page 8:
+
+1. Leap Year Check 
+
+#!/bin/bash
+echo "Enter a year:"
+read year
+if [ $((year % 400)) -eq 0 ]; then
+    echo "Leap year"
+elif [ $((year % 100)) -eq 0 ]; then
+    echo "Not a leap year"
+elif [ $((year % 4)) -eq 0 ]; then
+    echo "Leap year"
+else
+    echo "Not a leap year"
+fi
+
+2. Search Element in List
+
+#!/bin/bash
+echo "Enter space-separated list:"
+read -a list
+echo "Enter element to search:"
+read x
+found=0
+for item in "${list[@]}"; do
+    if [ $item -eq $x ]; then
+        found=1
+        break
+    fi
+done
+[ $found -eq 1 ] && echo "$x found" || echo "$x not found"
+
+3. Compare Two Strings
+
+#!/bin/bash
+echo "Enter first string:"
+read str1
+echo "Enter second string:"
+read str2
+if [ "$str1" == "$str2" ]; then
+    echo "Strings are equal"
+else
+    echo "Strings are not equal"
+fi
+
+4. Menu-Driven Calculator
+
+#!/bin/bash
+while true; do
+    echo "1. Add  2. Subtract  3. Multiply  4. Divide  5. Exit"
+    read choice
+    case $choice in
+        1|2|3|4)
+            echo "Enter two numbers:"
+            read a b
+            case $choice in
+                1) echo "$a + $b = $((a + b))" ;;
+                2) echo "$a - $b = $((a - b))" ;;
+                3) echo "$a × $b = $((a * b))" ;;
+                4) echo "$a ÷ $b = $((a / b))" ;;
+            esac ;;
+        5) break ;;
+        *) echo "Invalid choice!" ;;
+    esac
+done
+
+5. Directory Operations
+
+#!/bin/bash
+echo "Current directory: $(pwd)"
+echo "Contents:"
+ls
+mkdir -p ~/backup
+echo "Creating test file..." > ~/backup/test.txt
+cp ~/backup/test.txt ~/
+echo "Copied test.txt to home directory."
+
+6. Check File/Directory Existence
+
+#!/bin/bash
+echo "Enter path:"
+read path
+if [ -f "$path" ]; then
+    echo "File exists"
+elif [ -d "$path" ]; then
+    echo "Directory exists"
+else
+    echo "Creating directory..."
+    mkdir -p "$path"
+fi
+
+7. Power Calculation (First Number^Second Number)
+
+#!/bin/bash
+echo "Enter base and exponent:"
+read base exp
+result=1
+for ((i=1; i<=exp; i++)); do
+    result=$((result * base))
+done
+echo "$base^$exp = $result"
+
+8. Count Words/Characters/Lines Using grep
+
+#!/bin/bash
+echo "Enter filename:"
+read file
+words=$(grep -oE '\w+' "$file" | wc -l)
+chars=$(wc -m < "$file")
+lines=$(wc -l < "$file")
+echo "Words: $words, Characters: $chars, Lines: $lines"
+
+9. Replace Word in File Using sed
+
+#!/bin/bash
+echo "Enter filename, old word, new word:"
+read file old new
+sed -i "s/$old/$new/g" "$file"
+echo "Replaced all '$old' with '$new'"
+
+10. Search Patterns with egrep
+
+#!/bin/bash
+echo "Enter filename and patterns (space-separated):"
+read file patterns
+egrep -wi "$patterns" "$file"
+
+11. Remove Blank Lines Using sed
+
+#!/bin/bash
+echo "Enter filename:"
+read file
+sed -i '/^$/d' "$file"
+echo "Removed blank lines"
+
+12. Sum of Digits
+
+#!/bin/bash
+echo "Enter a number:"
+read num
+sum=0
+while [ $num -gt 0 ]; do
+    digit=$((num % 10))
+    sum=$((sum + digit))
+    num=$((num / 10))
+done
+echo "Sum of digits: $sum"
+
+13. Employee Pay Calculation
+
+#!/bin/bash
+echo "Enter basic salary:"
+read basic
+da=$((basic * 40 / 100))
+hra=$((basic * 20 / 100))
+gross=$((basic + da + hra))
+echo "Gross salary: $gross"
+
+1. FCFS Scheduling (Python)
+
+def fcfs(processes):
+    n = len(processes)
+    wt = [0] * n
+    for i in range(1, n):
+        wt[i] = processes[i-1][1] + wt[i-1]
+    total_wt = sum(wt)
+    print("Avg waiting time:", total_wt/n)
+
+processes = [[1, 6], [2, 8], [3, 7]]  
+fcfs(processes)
+
+2. Round Robin Scheduling (Python)
+
+def round_robin(processes, quantum):
+    n = len(processes)
+    rem_bt = [p[1] for p in processes]
+    t = 0
+    while True:
+        done = True
+        for i in range(n):
+            if rem_bt[i] > 0:
+                done = False
+                exec_time = min(quantum, rem_bt[i])
+                rem_bt[i] -= exec_time
+                t += exec_time
+        if done:
+            break
+
+processes = [[1, 10], [2, 5], [3, 8]]
+round_robin(processes, 2)
+
+4. Semaphore Implementation (Python)
+python
+from threading import Semaphore, Thread
+sem = Semaphore(1)
+
+def critical_section():
+    sem.acquire()
+    # Critical section code
+    sem.release()
+
+t1 = Thread(target=critical_section)
+t2 = Thread(target=critical_section)
+t1.start(); t2.start()
+
+5.Memory Allocation 
+#include <stdio.h>
+
+void memory_allocation(int block_size[], int m, int process_size[], int n, int fit_type) {
+    int allocation[n];
+    for (int i = 0; i < n; i++)
+        allocation[i] = -1;
+
+    for (int i = 0; i < n; i++) {
+        int best_idx = -1;
+        int worst_idx = -1;
+        
+        for (int j = 0; j < m; j++) {
+            if (block_size[j] >= process_size[i]) {
+                // First Fit - allocate immediately
+                if (fit_type == 1) {
+                    allocation[i] = j;
+                    block_size[j] -= process_size[i];
+                    break;
+                }
+                
+                // Track for Best/Worst Fit
+                if (best_idx == -1 || block_size[j] < block_size[best_idx])
+                    best_idx = j;
+                if (worst_idx == -1 || block_size[j] > block_size[worst_idx])
+                    worst_idx = j;
+            }
+        }
+        
+        // Allocate for Best/Worst Fit after full search
+        if (fit_type == 2 && best_idx != -1) {
+            allocation[i] = best_idx;
+            block_size[best_idx] -= process_size[i];
+        }
+        else if (fit_type == 3 && worst_idx != -1) {
+            allocation[i] = worst_idx;
+            block_size[worst_idx] -= process_size[i];
+        }
+    }
+
+    // Print results
+    printf("\nProcess No.\tProcess Size\tBlock No.\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d\t\t%d\t\t", i+1, process_size[i]);
+        if (allocation[i] != -1)
+            printf("%d\n", allocation[i]+1);
+        else
+            printf("Not Allocated\n");
+    }
+}
+
+int main() {
+    int block_size[] = {100, 500, 200, 300, 600};
+    int process_size[] = {212, 417, 112, 426};
+    int m = sizeof(block_size)/sizeof(block_size[0]);
+    int n = sizeof(process_size)/sizeof(process_size[0]);
+
+    printf("Memory Blocks: ");
+    for (int i = 0; i < m; i++) printf("%d ", block_size[i]);
+    
+    printf("\nProcess Sizes: ");
+    for (int i = 0; i < n; i++) printf("%d ", process_size[i]);
+
+    // Create copies of original block sizes
+    int blocks_first[m], blocks_best[m], blocks_worst[m];
+    for (int i = 0; i < m; i++) {
+        blocks_first[i] = block_size[i];
+        blocks_best[i] = block_size[i];
+        blocks_worst[i] = block_size[i];
+    }
+
+    printf("\n\n=== FIRST FIT ===");
+    memory_allocation(blocks_first, m, process_size, n, 1);
+
+    printf("\n=== BEST FIT ===");
+    memory_allocation(blocks_best, m, process_size, n, 2);
+
+    printf("\n=== WORST FIT ===");
+    memory_allocation(blocks_worst, m, process_size, n, 3);
+
+    return 0;
+}
