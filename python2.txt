@@ -183,6 +183,7 @@ fi
 echo "File: $file"
 echo "Characters: $(grep -o . "$file" | wc -l)"
 echo "Words: $(grep -oE '\w+' "$file" | wc -l)"
+echo "Lines: $(grep -c '' "$file")"
 
 ```
 
