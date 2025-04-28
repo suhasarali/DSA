@@ -1,0 +1,340 @@
+# Scripts:
+
+## **1. Arithmetic Operations**
+```bash
+#!/bin/bash
+echo "Enter two numbers:"
+read a b
+echo "Addition: $((a + b))"
+echo "Subtraction: $((a - b))"
+echo "Multiplication: $((a * b))"
+echo "Division: $((a / b))"
+```
+
+## **2. Simple Compound Interest**
+```bash
+#!/bin/bash
+echo "Enter Principal, Rate and Time:"
+read P R T
+
+SI=$(echo "$P * $R * $T / 100" | bc)
+CI=$(echo "$P * (1 + $R / 100)^$T" | bc -l)
+
+echo "Simple Interest: $SI"
+echo "Compound Interest: $CI"
+```
+
+## **3. Largest of 3 Numbers**
+```bash
+#!/bin/bash
+echo "Enter three numbers:"
+read a b c
+
+if [ $a -gt $b ] && [ $a -gt $c ]; then
+  echo "$a is largest"
+elif [ $b -gt $c ]; then
+  echo "$b is largest"
+else
+  echo "$c is largest"
+fi
+```
+
+## **4. Leap Year**
+```bash
+#!/bin/bash
+echo "Enter year:"
+read year
+
+if ((year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))); then
+  echo "$year is a Leap Year"
+else
+  echo "$year is NOT a Leap Year"
+fi
+```
+
+## **5. Fahrenheit to Celsius**
+```bash
+#!/bin/bash
+echo "Enter temperature in Fahrenheit:"
+read f
+
+c=$(echo "scale=2; ($f - 32) * 5 / 9" | bc)
+echo "$f°F is $c°C"
+```
+
+## **6. Power of a Number**
+```bash
+#!/bin/bash
+echo "Enter base and exponent:"
+read base exp
+
+result=$(echo "$base ^ $exp" | bc)
+echo "$base raised to $exp is $result"
+```
+
+## **7. Calculator (Menu Driven)**
+```bash
+#!/bin/bash
+echo "Enter two numbers:"
+read a b
+echo "1. Add 2. Subtract 3. Multiply 4. Divide"
+read choice
+
+case $choice in
+  1) echo "Sum = $((a + b))" ;;
+  2) echo "Difference = $((a - b))" ;;
+  3) echo "Product = $((a * b))" ;;
+  4) echo "Quotient = $((a / b))" ;;
+  *) echo "Invalid option" ;;
+esac
+```
+
+## **8. Element in List or Not**
+```bash
+#!/bin/bash
+echo "Enter list of elements (space-separated):"
+read -a arr
+echo "Enter element to search:"
+read target
+found=0
+for item in "${arr[@]}"
+do
+  if [ "$item" == "$target" ]; then
+    found=1
+    break
+  fi
+done
+if [ $found -eq 1 ]; then
+  echo "$target is present in the list."
+else
+  echo "$target is NOT present in the list."
+fi
+```
+
+## **9. Area & Circumference of a Circle**
+```bash
+#!/bin/bash
+echo "Enter radius:"
+read r
+pi=3.14
+area=$(echo "$pi * $r * $r" | bc)
+circum=$(echo "2 * $pi * $r" | bc)
+echo "Area: $area"
+echo "Circumference: $circum"
+```
+
+## **10. String Comparison**
+```bash
+#!/bin/bash
+echo "Enter two strings:"
+read str1 str2
+if [ "$str1" = "$str2" ]; then
+  echo "Strings are equal"
+else
+  echo "Strings are not equal"
+fi
+```
+
+## **11. Employee Pay Calculator**
+```bash
+#!/bin/bash
+echo "Enter basic salary:"
+read basic
+hra=$(echo "0.2 * $basic" | bc)
+da=$(echo "0.1 * $basic" | bc)
+gross=$(echo "$basic + $hra + $da" | bc)
+echo "Gross Salary: $gross"
+```
+
+## **12. Grade Calculation**
+```bash
+#!/bin/bash
+echo "Enter marks:"
+read m
+if [ $m -ge 90 ]; then echo "Grade: A"
+elif [ $m -ge 75 ]; then echo "Grade: B"
+elif [ $m -ge 60 ]; then echo "Grade: C"
+else echo "Grade: F"
+fi
+```
+
+## **13. Directory Operations (Basic)**
+```bash
+#!/bin/bash
+mkdir testDir
+cd testDir
+touch file.txt
+echo "Hello" > file.txt
+cp file.txt ~/Documents/
+ls -l
+```
+
+## **14. grep: Count Characters, Words, and Lines**
+```bash
+#!/bin/bash
+echo "Enter filename:"
+read file
+
+if [ -f "$file" ]; then
+  echo "Characters: $(wc -m < $file)"
+  echo "Words: $(wc -w < $file)"
+  echo "Lines: $(wc -l < $file)"
+else
+  echo "File not found!"
+fi
+```
+
+## **15. sed: Replace All Occurrences of a Word**
+```bash
+#!/bin/bash
+echo "Enter filename:"
+read file
+echo "Enter word to replace:"
+read old
+echo "Enter new word:"
+read new
+
+if [ -f "$file" ]; then
+  sed "s/$old/$new/g" "$file"
+else
+  echo "File not found!"
+fi
+```
+
+## **16. sed: Remove All Blank Lines from a File**
+```bash
+#!/bin/bash
+echo "Enter filename:"
+read file
+
+if [ -f "$file" ]; then
+  sed '/^$/d' "$file"
+else
+  echo "File not found!"
+fi
+```
+
+## **17. egrep: Match Multiple Patterns**
+```bash
+#!/bin/bash
+echo "Enter filename:"
+read file
+echo "Enter patterns (separated by |):"
+read pattern
+
+if [ -f "$file" ]; then
+  egrep "$pattern" "$file"
+else
+  echo "File not found!"
+fi
+```
+
+## **18. Check & Create Directory if It Doesn't Exist**
+```bash
+#!/bin/bash
+echo "Enter directory name:"
+read dir
+
+if [ -d "$dir" ]; then
+  echo "Directory '$dir' already exists."
+else
+  mkdir "$dir"
+  echo "Directory '$dir' created."
+fi
+```
+
+## **19. Check & Create File if It Doesn't Exist**
+```bash
+#!/bin/bash
+echo "Enter file name:"
+read file
+
+if [ -f "$file" ]; then
+  echo "File '$file' already exists."
+else
+  touch "$file"
+  echo "File '$file' created."
+fi
+```
+
+## **20. Combined Script – Check/Create Both File & Directory**
+```bash
+#!/bin/bash
+echo "Enter directory name:"
+read dir
+echo "Enter file name to create inside the directory:"
+read file
+
+if [ ! -d "$dir" ]; then
+  mkdir "$dir"
+  echo "Directory '$dir' created."
+fi
+
+if [ ! -f "$dir/$file" ]; then
+  touch "$dir/$file"
+  echo "File '$file' created inside '$dir'."
+else
+  echo "File already exists in the directory."
+fi
+```
+
+# Linux Commands:
+## **System Monitoring and User Interaction Tasks**
+| Task                                      | Command                     | Explanation                                    |
+|:-----------------------------------------:|:---------------------------:|:----------------------------------------------:|
+| Display custom message when script starts | `echo "Starting build..."`  | Shows a message on the terminal.               |
+| Clean terminal before session             | `clear`                     | Clears the screen for a clean start.           |
+| Exit safely after script                  | `exit`                      | Exits current shell session.                   |
+| Log system date and time before process   | `date`                      | Prints date/time; add date >> logfile.txt to save. |
+| Measure script build time                 | `time ./your_script.sh`     | Shows total execution time.                    |
+| Check server uptime                       | `uptime`                    | Shows how long the system has been running.    |
+| View calendar                             | `cal`                       | Displays monthly calendar.                     |
+| Read configuration files                  | `cat filename, less filename` | Read config or logs.                         |
+| Identify terminal device                  | `tty`                       | Shows terminal connected (like /dev/pts/0).    |
+| Learn about unfamiliar commands           | `man commandname or --help` | Manual/help for commands.                      |
+| Locate path of installed programs         | `which commandname`         | Path where executable is stored.               |
+| Review past commands                      | `history`                   | View list of previous commands.                |
+| Check user ID and group                   | `id`                        | Displays UID, GID.                             |
+| Confirm working directory                 | `pwd`                       | Prints current working directory.              |
+| Confirm current logged-in user            | `whoami`                    | Prints username.                               |
+
+## **System Administration – Networking, Printing, Email Tasks**
+| Task                           | Command                                | Explanation                                |
+|:------------------------------:|:--------------------------------------:|:------------------------------------------:|
+| Check network connectivity     | `ping google.com`                      | Sends packets to check the network.        |
+| View network interfaces        | `ifconfig or ip addr`                  | Lists network interfaces.                  |
+| Prepare output for printing    | `pr filename \| lpr`                   | Format and send to printer.                |
+| Send file to printer           | `lpr filename`                         | Print file.                                |
+| Check print jobs               | `lpq`                                  | Lists pending print jobs.                  |
+| Detailed print queue           | `lpstat -o`                            | Shows a detailed printer queue.            |
+| Remove specific print job      | `lprm jobid`                           | Removes the print job from the queue.      |
+| Cancel a print job             | `cancel jobid`                         | Cancels a print job.                       |
+| Send system-generated email    | `mail -s "Subject" user@example.com`   | Send email with a message body.            |
+
+## **File Management Tasks**
+| Task                           | Command                                        | Explanation                       |
+|:------------------------------:|:----------------------------------------------:|:---------------------------------:|
+| Create project directory/files | `mkdir ProjectName && touch ProjectName/file.txt` | Create folders and files.      |
+| Check/manage files             | `ls -l, cat filename`                          | View list or content.             |
+| Copy/move files                | `cp source dest, mv source dest`               | Copy or move files.               |
+| Archive files                  | `tar -cvf archive.tar filename`                | Archive files.                    |
+| Delete files                   | `rm filename`                                  | Remove files.                     |
+| Check file content             | `cat, less, more filename`                     | Display contents on the terminal. |
+
+## **User Management Tasks**
+| Task                            | Command                                | Explanation                       |
+|:-------------------------------:|:--------------------------------------:|:---------------------------------:|
+| Create student/faculty accounts | `sudo useradd username`               | Adds a new user.                   |
+| Assign users to groups          | `sudo usermod -aG groupname username`  | Add users to a group.             |
+| Check logged-in users           | `who`                                  | See who is logged in.             |
+| Delete a user who graduated     | `sudo userdel username`                | Deletes user account.             |
+| Check password expiration       | `chage -l username`                    | See password expiry details.      |
+
+## **Process Management Commands**
+| Task                               | Command                         | Explanation                               |
+|:----------------------------------:|:-------------------------------:|:-----------------------------------------:|
+| See running processes              | `ps, top, htop`                 | List running processes.                   |
+| View parent-child process          | `pstree`                        | Displays process tree.                    |
+| Start process with lower priority  | `nice -n 10 ./your_program`     | Run a program with nice value.            |
+| Change priority of running process | `renice -n 10 -p PID`           | Adjust running process priority.          |
+| Kill a process                     | `kill PID, killall processname` | Stop a process.                           |
