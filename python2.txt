@@ -167,17 +167,23 @@ ls -l
 
 ## **14. grep: Count Characters, Words, and Lines**
 ```bash
-#!/bin/bash
-echo "Enter filename:"
-read file
-
-if [ -f "$file" ]; then
-  echo "Characters: $(wc -m < $file)"
-  echo "Words: $(wc -w < $file)"
-  echo "Lines: $(wc -l < $file)"
-else
-  echo "File not found!"
+!/bin/bash
+# Check if exactly one argument (filename) is provided
+if [ $# -ne 1 ]; then
+    echo "Enter <filename>"
+    exit 1
 fi
+file=$1
+# Check if the file exists
+if [ ! -f "$file" ]; then
+    echo "File does not exist"
+    exit 1
+fi
+# Count characters, words, and lines using grep
+echo "File: $file"
+echo "Characters: $(grep -o . "$file" | wc -l)"
+echo "Words: $(grep -oE '\w+' "$file" | wc -l)"
+
 ```
 
 ## **15. sed: Replace All Occurrences of a Word**
